@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "cosmos"
+    "start": "cosmos",
+    "build": "cosmos-export"
   },
   "devDependencies": {
     "@tscircuit/solver-utils": "^0.0.14",

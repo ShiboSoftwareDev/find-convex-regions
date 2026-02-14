@@ -24,6 +24,16 @@ export default function Demo02DebuggerFixture() {
     [vias, clearance, concavityTolerance],
   )
 
+  const solverKey = useMemo(
+    () =>
+      JSON.stringify({
+        clearance,
+        concavityTolerance,
+        vias,
+      }),
+    [clearance, concavityTolerance, vias],
+  )
+
   return (
     <div
       style={{
@@ -77,7 +87,11 @@ export default function Demo02DebuggerFixture() {
         </button>
       </div>
 
-      <GenericSolverDebugger solver={solver} animationSpeed={25} />
+      <GenericSolverDebugger
+        key={solverKey}
+        solver={solver}
+        animationSpeed={25}
+      />
     </div>
   )
 }
