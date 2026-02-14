@@ -1,11 +1,16 @@
 {
-  "name": "find-convex-regions",
-  "module": "index.ts",
+  "name": "@tscircuit/find-convex-regions",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "type": "module",
   "private": true,
   "scripts": {
     "start": "cosmos",
-    "build": "cosmos-export"
+    "build": "tsup --dts --format esm ./lib/index.ts",
+    "build:site": "cosmos-export"
   },
   "devDependencies": {
     "@tscircuit/solver-utils": "^0.0.14",
