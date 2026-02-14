@@ -37,3 +37,26 @@ export type RegionPort = {
   y: number
   region: number
 }
+
+export type GeneratePointsStageOutput = {
+  pts: Point[]
+}
+
+export type TriangulateStageInput = GeneratePointsStageOutput & {
+  bounds: Bounds
+  vias: Via[]
+  clearance: number
+}
+
+export type TriangulateStageOutput = GeneratePointsStageOutput & {
+  validTris: Triangle[]
+}
+
+export type MergeCellsStageInput = TriangulateStageOutput & {
+  concavityTolerance: number
+}
+
+export type MergeCellsStageOutput = TriangulateStageOutput & {
+  cells: number[][]
+  depths: number[]
+}

@@ -113,8 +113,8 @@ export default function App() {
         display: "flex",
         flexDirection: "column",
         height: "100vh",
-        background: "#0f1117",
-        color: "#e0e0e0",
+        background: "#f6f8fc",
+        color: "#1d2430",
         fontFamily: "system-ui, sans-serif",
         overflow: "hidden",
       }}
@@ -122,17 +122,19 @@ export default function App() {
       <div
         style={{
           padding: "12px 16px",
-          borderBottom: "1px solid #2a2d35",
+          borderBottom: "1px solid #d6dde8",
           display: "flex",
           alignItems: "center",
           gap: 12,
           flexShrink: 0,
         }}
       >
-        <h2 style={{ margin: 0, fontSize: 16, fontWeight: 600, color: "#fff" }}>
+        <h2
+          style={{ margin: 0, fontSize: 16, fontWeight: 600, color: "#1d2430" }}
+        >
           Hypergraph Region Constructor
         </h2>
-        <span style={{ fontSize: 12, color: "#888" }}>
+        <span style={{ fontSize: 12, color: "#5d6878" }}>
           Click to add vias - Drag to move - Right-click to remove
         </span>
       </div>
@@ -145,7 +147,7 @@ export default function App() {
             flex: 1,
             minWidth: 0,
             cursor: dragIdx !== null ? "grabbing" : "crosshair",
-            background: "#13151c",
+            background: "#ffffff",
           }}
           onMouseMove={onMove}
           onMouseUp={onUp}
@@ -294,7 +296,7 @@ export default function App() {
           style={{
             width: 270,
             padding: 16,
-            borderLeft: "1px solid #2a2d35",
+            borderLeft: "1px solid #d6dde8",
             display: "flex",
             flexDirection: "column",
             gap: 16,
@@ -434,9 +436,9 @@ export default function App() {
                 style={{
                   width: "100%",
                   padding: "8px 0",
-                  background: "#2a2d35",
-                  color: "#e0e0e0",
-                  border: "1px solid #3a3d45",
+                  background: "#eef3fb",
+                  color: "#1d2430",
+                  border: "1px solid #cfd8e6",
                   borderRadius: 6,
                   cursor: "pointer",
                   fontSize: 13,
@@ -485,7 +487,7 @@ export default function App() {
 
           {hoverRegion !== null && regions[hoverRegion] && (
             <div
-              style={{ background: "#1a1d25", borderRadius: 8, padding: 12 }}
+              style={{ background: "#edf2fa", borderRadius: 8, padding: 12 }}
             >
               <div
                 style={{

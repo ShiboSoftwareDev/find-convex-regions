@@ -31,7 +31,7 @@ export default function Demo02DebuggerFixture() {
         flexDirection: "column",
         gap: 12,
         padding: 12,
-        background: "#12141a",
+        background: "#f6f8fc",
         minHeight: "100vh",
       }}
     >
@@ -39,7 +39,7 @@ export default function Demo02DebuggerFixture() {
         style={{
           display: "flex",
           gap: 16,
-          color: "#e6e8ee",
+          color: "#1d2430",
           alignItems: "center",
         }}
       >

@@ -1,0 +1,60 @@
+import { BaseSolver } from "@tscircuit/solver-utils"
+import type { GraphicsObject } from "graphics-debug"
+import { genPoints } from "./genPoints"
+import type {
+  ConvexRegionsComputeInput,
+  GeneratePointsStageOutput,
+} from "./types"
+
+export class GeneratePointsSolver extends BaseSolver {
+  private readonly input: ConvexRegionsComputeInput
+  private output: GeneratePointsStageOutput | null = null
+
+  constructor(input: ConvexRegionsComputeInput) {
+    super()
+    this.input = input
+  }
+
+  override _step(): void {
+    this.output = {
+      pts: genPoints(this.input.bounds, this.input.vias, this.input.clearance),
+    }
+    this.stats = { points: this.output.pts.length }
+    this.solved = true
+  }
+
+  override getConstructorParams(): [ConvexRegionsComputeInput] {
+    return [this.input]
+  }
+
+  override getOutput(): GeneratePointsStageOutput | null {
+    return this.output
+  }
+
+  override visualize(): GraphicsObject {
+    const points = (this.output?.pts ?? []).map((pt) => ({
+      x: pt.x,
+      y: pt.y,
+      color: "#2563eb",
+    }))
+
+    return {
+      points,
+      lines: [],
+      rects: [],
+      circles: this.input.vias.map((via) => ({
+        center: { x: via.center.x, y: via.center.y },
+        radius: via.diameter / 2 + this.input.clearance,
+        stroke: "#ef4444",
+      })),
+      texts: [
+        {
+          x: this.input.bounds.minX + 6,
+          y: this.input.bounds.minY + 12,
+          text: `sample points: ${points.length}`,
+          color: "#1f2937",
+        },
+      ],
+    }
+  }
+}
