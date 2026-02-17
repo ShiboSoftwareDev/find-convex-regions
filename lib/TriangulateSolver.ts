@@ -14,13 +14,16 @@ export class TriangulateSolver extends BaseSolver {
   }
 
   override _step(): void {
+    const vias = this.input.vias ?? []
+    const rects = this.input.rects ?? []
     const allTriangles = delaunay(this.input.pts)
     const validTris = filterTris(
       allTriangles,
       this.input.pts,
       this.input.bounds,
-      this.input.vias,
+      vias,
       this.input.clearance,
+      rects,
     )
 
     this.output = {

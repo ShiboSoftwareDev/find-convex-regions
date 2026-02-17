@@ -8,6 +8,13 @@ export type Via = {
   diameter: number
 }
 
+export type Rect = {
+  center: Point
+  width: number
+  height: number
+  ccwRotation: number
+}
+
 export type Bounds = {
   minX: number
   maxX: number
@@ -19,7 +26,8 @@ export type Triangle = [number, number, number]
 
 export type ConvexRegionsComputeInput = {
   bounds: Bounds
-  vias: Via[]
+  vias?: Via[]
+  rects?: Rect[]
   clearance: number
   concavityTolerance: number
 }
@@ -44,7 +52,8 @@ export type GeneratePointsStageOutput = {
 
 export type TriangulateStageInput = GeneratePointsStageOutput & {
   bounds: Bounds
-  vias: Via[]
+  vias?: Via[]
+  rects?: Rect[]
   clearance: number
 }
 

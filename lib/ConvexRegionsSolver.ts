@@ -26,6 +26,7 @@ export class ConvexRegionsSolver extends BasePipelineSolver<ConvexRegionsCompute
           pts: generated.pts,
           bounds: instance.inputProblem.bounds,
           vias: instance.inputProblem.vias,
+          rects: instance.inputProblem.rects,
           clearance: instance.inputProblem.clearance,
         },
       ]
@@ -85,7 +86,7 @@ export class ConvexRegionsSolver extends BasePipelineSolver<ConvexRegionsCompute
         }),
       ),
       rects: [],
-      circles: this.inputProblem.vias.map((via) => ({
+      circles: (this.inputProblem.vias ?? []).map((via) => ({
         center: { x: via.center.x, y: via.center.y },
         radius: via.diameter / 2,
         stroke: "#ff6b6b",

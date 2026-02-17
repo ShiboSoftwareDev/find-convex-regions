@@ -14,10 +14,20 @@ const isDefinedPoint = <T>(value: T | undefined): value is T =>
 export const computeConvexRegions = (
   input: ConvexRegionsComputeInput,
 ): ConvexRegionsComputeResult => {
-  const { bounds, vias, clearance, concavityTolerance } = input
-  const pts = genPoints(bounds, vias, clearance)
+  const { bounds, clearance, concavityTolerance } = input
+  const vias = input.vias ?? []
+  const rects = input.rects ?? []
+
+  const pts = genPoints(bounds, vias, clearance, rects)
   const allTriangles = delaunay(pts)
-  const validTris = filterTris(allTriangles, pts, bounds, vias, clearance)
+  const validTris = filterTris(
+    allTriangles,
+    pts,
+    bounds,
+    vias,
+    clearance,
+    rects,
+  )
   const { cells, depths } = mergeCells(validTris, pts, concavityTolerance)
 
   const regions = cells.map((cell) =>

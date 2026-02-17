@@ -16,8 +16,11 @@ export class GeneratePointsSolver extends BaseSolver {
   }
 
   override _step(): void {
+    const vias = this.input.vias ?? []
+    const rects = this.input.rects ?? []
+
     this.output = {
-      pts: genPoints(this.input.bounds, this.input.vias, this.input.clearance),
+      pts: genPoints(this.input.bounds, vias, this.input.clearance, rects),
     }
     this.stats = { points: this.output.pts.length }
     this.solved = true
@@ -38,11 +41,13 @@ export class GeneratePointsSolver extends BaseSolver {
       color: "#2563eb",
     }))
 
+    const vias = this.input.vias ?? []
+
     return {
       points,
       lines: [],
       rects: [],
-      circles: this.input.vias.map((via) => ({
+      circles: vias.map((via) => ({
         center: { x: via.center.x, y: via.center.y },
         radius: via.diameter / 2 + this.input.clearance,
         stroke: "#ef4444",

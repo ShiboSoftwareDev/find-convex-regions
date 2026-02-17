@@ -1,22 +1,20 @@
 import { useMemo } from "react"
 import { ConvexRegionsSolver } from "../lib/ConvexRegionsSolver"
 import { regionPath } from "../lib/regionPath"
-import { createStaggeredJumpersInput } from "../tests/staggered-jumpers.shared"
+import { createStaggeredViasInput } from "../tests/staggered-jumpers.shared"
 
 const REGION_FILL = "rgba(56,182,255,0.25)"
 const REGION_STROKE = "rgb(56,182,255)"
 
-export default function StaggeredJumpersFixture() {
-  const input = useMemo(() => createStaggeredJumpersInput(), [])
+export default function StaggeredViasFixture() {
+  const input = useMemo(() => createStaggeredViasInput(), [])
   const output = useMemo(() => {
     const solver = new ConvexRegionsSolver(input)
     solver.solve()
     return solver.getOutput()
   }, [input])
 
-  if (!output) {
-    return null
-  }
+  if (!output) return null
 
   const { regions } = output
 
@@ -47,7 +45,7 @@ export default function StaggeredJumpersFixture() {
           />
         ))}
 
-        {input.vias.map((via, index) => (
+        {(input.vias ?? []).map((via, index) => (
           <g key={`via-${index}`}>
             <circle
               cx={via.center.x}

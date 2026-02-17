@@ -1,9 +1,20 @@
-import type { Bounds, Point, Via } from "./types"
+import type { Bounds, Point, Rect, Via } from "./types"
+
+const rotatePoint = (localX: number, localY: number, rect: Rect): Point => {
+  const cosTheta = Math.cos(rect.ccwRotation)
+  const sinTheta = Math.sin(rect.ccwRotation)
+
+  return {
+    x: rect.center.x + localX * cosTheta - localY * sinTheta,
+    y: rect.center.y + localX * sinTheta + localY * cosTheta,
+  }
+}
 
 export const genPoints = (
   bounds: Bounds,
-  vias: Via[],
+  vias: Via[] = [],
   clearance: number,
+  rects: Rect[] = [],
 ): Point[] => {
   const points: Point[] = []
   const { minX: x0, maxX: x1, minY: y0, maxY: y1 } = bounds
@@ -33,6 +44,29 @@ export const genPoints = (
         x: via.center.x + radius * Math.cos(angle),
         y: via.center.y + radius * Math.sin(angle),
       })
+    }
+  }
+
+  for (const rect of rects) {
+    const halfWidth = rect.width / 2 + clearance
+    const halfHeight = rect.height / 2 + clearance
+    const edgeSegments = Math.max(
+      2,
+      Math.ceil(Math.max(halfWidth * 2, halfHeight * 2) / 20),
+    )
+
+    for (let i = 0; i < edgeSegments; i++) {
+      const t = i / edgeSegments
+      points.push(
+        rotatePoint(-halfWidth + t * 2 * halfWidth, -halfHeight, rect),
+      )
+      points.push(
+        rotatePoint(halfWidth, -halfHeight + t * 2 * halfHeight, rect),
+      )
+      points.push(rotatePoint(halfWidth - t * 2 * halfWidth, halfHeight, rect))
+      points.push(
+        rotatePoint(-halfWidth, halfHeight - t * 2 * halfHeight, rect),
+      )
     }
   }
 
